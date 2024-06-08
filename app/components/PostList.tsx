@@ -8,7 +8,7 @@ interface PostListProps {
 
 const PostList: React.FC<PostListProps> = ({ posts }) => {
     return (
-        <div className='w-full max-w-4xl px-4'>
+        <div className='w-full max-w-6xl px-4'>
             {posts.map((post: PostProps) => (
                 <PostItem key={post.id} post={post} />
             ))}

@@ -2,6 +2,7 @@
 import { PostProps } from "@/app/types/PostType";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface Params {
     id: string;
@@ -29,12 +30,14 @@ const Page = ({ params }: Props) => {
         fetchPost(postId);
     }, [postId]);
 
+    const goBackText = '< go back'
     return (
         <div className='min-h-screen w-full  bg-white text-black px-20 pt-10 text-lg'>
+            <Link href='/'><div className='max-w-6xl mx-auto pb-8 text-gray-500 text-sm'>{goBackText}</div></Link>
             {error ? (
                 <p>No information available</p>
             ) : post ? (
-                <div className='max-w-3xl mx-auto'>
+                <div className='max-w-4xl mx-auto'>
                     <h1 className='text-3xl font-bold text-center mb-6'>{post.title}</h1>
                     <p className='text-lg mb-4'>{post.body}</p>
 
