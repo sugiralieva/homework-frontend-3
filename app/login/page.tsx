@@ -2,6 +2,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '../context/UserContext';
+import axios from "axios";
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -9,45 +10,36 @@ const Login: React.FC = () => {
     const { setToken } = useUser();
     const router = useRouter();
 
-    const handleLogin = async (e: FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://dummyjson.com/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password })
-            });
+            const res = await axios.post(
+                'https://dummyjson.com/auth/login',
+                { username, password },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
 
-            if (!response.ok) {
-                console.error('Ошибка сети:', response.status, response.statusText);
-                alert('Неверное имя пользователя или пароль');
-                return;
-            }
-
-            const data = await response.json();
-            console.log('Ответ от сервера:', data); // Добавлено для отладки
-
+            const data = res.data
             if (data.token) {
                 setToken(data.token);
-                router.push('/');
+                router.push('/posts');
             } else {
                 console.error('Токен не найден в ответе:', data); // Добавлено для отладки
-                alert('Неверное имя пользователя или пароль');
+
             }
         } catch (error) {
-            console.error('Ошибка при авторизации:', error);
-            alert('Ошибка при авторизации');
+            console.error('Login failed:', error);
+            alert('Неверное имя пользователя или пароль');
         }
     };
 
     return (
-        <form onSubmit={handleLogin} className='flex-col min-h-screen'>
-            <div>
-                <label htmlFor="username">Имя пользователя:</label>
+        <div className='bg-white flex items-center justify-center min-h-screen'>
+        <form onSubmit={handleLogin} className='bg-gray-100 p-8 rounded shadow-md w-full max-w-sm'>
+            <div className='mb-4'>
+                <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor="username">Имя пользователя:</label>
                 <input
-                    className={'text-black'}
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:input-focused'
                     id="username"
                     type="text"
                     placeholder="Имя пользователя"
@@ -55,10 +47,10 @@ const Login: React.FC = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
-            <div>
-                <label htmlFor="password">Пароль:</label>
+            <div className='mb-6'>
+                <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor="password">Пароль:</label>
                 <input
-                    className='text-black'
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:input-focused'
                     id="password"
                     type="password"
                     placeholder="Пароль"
@@ -66,8 +58,11 @@ const Login: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <button className='bg-blue-600' type="submit">Войти</button>
+            <div className='flex items-center justify-between'>
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' type="submit">Войти</button>
+            </div>
         </form>
+        </div>
     );
 };
 

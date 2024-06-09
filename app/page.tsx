@@ -1,18 +1,23 @@
 'use client'
-import axios from "axios";
-import { useEffect, useState } from "react";
 import {UserProvider} from "@/app/context/UserContext";
-import PostList from "@/app/components/PostList";
-import { PostProps } from "@/app/types/PostType";
 import Link from "next/link";
+import LogOut from "@/app/components/LogOut";
+import React from "react";
 
 export default function Home() {
 
   return (
-      <UserProvider>
-        <div className='bg-white text-gray-900 flex flex-col items-center'>
-          <h1 className='text-3xl font-bold py-8'>Main page. Go to <Link href='/posts'>posts</Link></h1>
-        </div>
-      </UserProvider>
+      <div className='min-h-screen bg-white text-gray-900 flex flex-col items-center'>
+          <div className='w-full  bg-white text-black px-20 pt-10 text-lg'>
+              <div className='mx-auto flex justify-end'>
+                  <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+                      <Link href='/login'>Login</Link>
+                  </button>
+              </div>
+          </div>
+          <h1 className='text-3xl font-bold py-8'>Welcome!</h1>
+          <p className='text-black text-xl'>Go to <Link className='text-blue-600 text-xl text-decoration-line: underline' href='/posts'>posts</Link></p>
+          <p className='text-black text-xl'>But before don't forget to log in</p>
+      </div>
   );
 }

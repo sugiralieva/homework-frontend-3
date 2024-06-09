@@ -1,3 +1,4 @@
+'use client'
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface User {
@@ -23,13 +24,18 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(() => {
+        const token = localStorage.getItem('token');
+        return token ? { token } : null;
+    });
 
     const setToken = (token: string) => {
+        localStorage.setItem('token', token);
         setUser({ token });
     };
 
     const logout = () => {
+        localStorage.removeItem('token');
         setUser(null);
     };
 
