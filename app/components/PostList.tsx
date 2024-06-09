@@ -1,4 +1,5 @@
-import React from 'react';
+'use client'
+import React, { useContext } from 'react';
 import PostItem from "@/app/components/PostItem";
 import { PostProps } from "@/app/types/PostType";
 
@@ -7,11 +8,12 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = ({ posts }) => {
+
+
     return (
         <div className='w-full max-w-6xl px-4'>
-            {posts.map((post: PostProps) => (
-                <PostItem key={post.id} post={post} />
-            ))}
+            {posts.map((post) => <PostItem key={post.id} post={post} />)
+          }
         </div>
     );
 };

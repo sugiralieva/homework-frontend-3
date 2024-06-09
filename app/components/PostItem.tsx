@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { PostProps } from "@/app/types/PostType";
 import Link from "next/link";
