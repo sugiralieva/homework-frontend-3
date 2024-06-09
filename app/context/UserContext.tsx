@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface User {
     token: string;
@@ -24,19 +24,29 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(() => {
-        const token = localStorage.getItem('token');
-        return token ? { token } : null;
-    });
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const token = localStorage.getItem('token');
+            if (token) {
+                setUser({ token });
+            }
+        }
+    }, []);
 
     const setToken = (token: string) => {
-        localStorage.setItem('token', token);
-        setUser({ token });
+        if (typeof window !== "undefined") {
+            localStorage.setItem('token', token);
+            setUser({ token });
+        }
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
-        setUser(null);
+        if (typeof window !== "undefined") {
+            localStorage.removeItem('token');
+            setUser(null);
+        }
     };
 
     return (
