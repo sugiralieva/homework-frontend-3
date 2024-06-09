@@ -11,12 +11,12 @@ export default function Home() {
           <div className='w-full  bg-white text-black px-20 pt-10 text-lg'>
               <div className='mx-auto flex justify-end'>
                   <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
-                      <Link href='/login'>Login</Link>
+                      <a href="/login">Login</a>
                   </button>
               </div>
           </div>
           <h1 className='text-3xl font-bold py-8'>Welcome!</h1>
-          <p className='text-black text-xl'>Go to <Link className='text-blue-600 text-xl text-decoration-line: underline' href='/posts'>posts</Link></p>
+          <p className='text-black text-xl'>Go to <a className='text-blue-600 text-xl text-decoration-line: underline' href='/posts'>posts</a></p>
           <p className='text-black text-xl'>But before don't forget to log in</p>
       </div>
   );
