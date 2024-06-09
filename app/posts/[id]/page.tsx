@@ -33,7 +33,7 @@ const Page = ({ params }: Props) => {
     const goBackText = '< go back'
     return (
         <div className='min-h-screen w-full  bg-white text-black px-20 pt-10 text-lg'>
-            <Link href='/'><div className='max-w-6xl mx-auto pb-8 text-gray-500 text-sm'>{goBackText}</div></Link>
+            <Link href='/posts'><div className='max-w-6xl mx-auto pb-8 text-gray-500 text-sm'>{goBackText}</div></Link>
             {error ? (
                 <p>No information available</p>
             ) : post ? (

@@ -10,7 +10,7 @@ interface PostItemProps {
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
     return (
         <div className='border-b border-gray-200 py-6'>
-            <Link href={String(post.id)}>
+            <Link href={`/posts/${String(post.id)}`}>
                 <h1 className='text-2xl font-semibold text-black hover:underline'>{post.title}</h1>
             </Link>
             <p className='text-gray-700 mt-2'>{post.body}...</p>
